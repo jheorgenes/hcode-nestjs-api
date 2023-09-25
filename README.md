@@ -36,7 +36,7 @@ $ npm install
 
 ```bash
 # class-validate 
-$  npm i class-validator class-transformer
+$ npm i class-validator class-transformer
 # mapped-types
 $ npm install @nestjs/mapped-types
 # prisma

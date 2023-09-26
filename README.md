@@ -49,9 +49,13 @@ $ npx prisma db pull
 $ npx prisma migrate dev --name <nomeMigration>
 # Para somente gerar a estrutura do prisma no projeto de acordo com o schema
 $ npx prisma generate
-
 ## JWT Authentication  v9.0
 $ npm i npm i @nestjs/jwt@9.0.0 
+## bcrypt
+$ npm i bcrypt
+# types bcrypt
+$ npm i -D @types/bcrypt
+
 ```
 
 ## Running the app

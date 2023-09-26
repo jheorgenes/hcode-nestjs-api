@@ -19,7 +19,7 @@ export class AuthService {
   ) {}
 
   //O parâmetro User é do tipo @prisma/client, pois no schema do Prisma há um User (tabela) especificada.
-  async createToken(user: User) {
+  createToken(user: User) {
     return {
       accessToken: this.jwtService.sign(
         { //payload
@@ -38,7 +38,7 @@ export class AuthService {
     }
   }
 
-  async checkToken(token: string) {
+  checkToken(token: string) {
     try {
       const data = this.jwtService.verify(
         token, 
@@ -54,7 +54,8 @@ export class AuthService {
     
   }
 
-  async isValidToken(token: string) {
+  /** Validando o token */
+  isValidToken(token: string) {
     try {
       this.checkToken(token);
       return true;
@@ -111,6 +112,7 @@ export class AuthService {
     return this.createToken(user);
   }
 
+  // Registra o usuário, gera o token e retorna o mesmo
   async register(data: AuthRegisterDTO) {
     const user = await this.userService.create(data);
 

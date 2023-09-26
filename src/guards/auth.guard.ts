@@ -7,7 +7,9 @@ import { UserService } from "src/user/user.service";
 export class AuthGuard implements CanActivate {
 
   constructor(
+    // @Inject(forwardRef(() => AuthService)) //Previnindo dependencias de módulos circulares
     private readonly authService: AuthService,
+    // @Inject(forwardRef(() => UserService))
     private readonly userService: UserService  
   ) {}
 

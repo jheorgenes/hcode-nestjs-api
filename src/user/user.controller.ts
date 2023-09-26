@@ -1,11 +1,17 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, UseInterceptors } from "@nestjs/common";
-import { CreateUserDTO } from "./dto/create-user.dto";
-import { UpdatePutUserDTO } from "./dto/update-put-user.dto";
-import { UpdatePatchUserDTO } from "./dto/update-patch-user.dto";
-import { UserService } from "./user.service";
-import { LogInterceptor } from "src/interceptors/log.interceptor";
+import { Body, Controller, Delete, Get, Patch, Post, Put, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ParamId } from "src/decorators/param-id.decorator";
+import { Roles } from "src/decorators/roles.decorator";
+import { Role } from "src/enums/role.enum";
+import { AuthGuard } from "src/guards/auth.guard";
+import { RoleGuard } from "src/guards/role.guard";
+import { LogInterceptor } from "src/interceptors/log.interceptor";
+import { CreateUserDTO } from "./dto/create-user.dto";
+import { UpdatePatchUserDTO } from "./dto/update-patch-user.dto";
+import { UpdatePutUserDTO } from "./dto/update-put-user.dto";
+import { UserService } from "./user.service";
 
+@Roles(Role.Admin) //Aplicando restrinção para apenas administradores acessarem essa rota
+@UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(LogInterceptor)
 @Controller('users')
 export class UserController {
@@ -25,7 +31,6 @@ export class UserController {
   @Get(':id')
   async show(@ParamId() id: number) {
     console.log(id);
-    
     return this.userService.show(id);
   }
 
@@ -39,7 +44,7 @@ export class UserController {
     return this.userService.updatePartial(id, data);
   }
 
-  //Usando o ParseIntPipe para converter a string dos parametros em numéricos (Uma validação do próprio nest)
+  //Usando o ParseIntPipe para converter a string dos parametros em numéricos (Uma validação do próprio nest) 
   @Delete(':id')
   async delete(@ParamId() id: number){
     return this.userService.delete(id);

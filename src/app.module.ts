@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod, forwardRef } from '@nestjs/common';
 import { UserIdCheckMiddleware } from './middlewares/uder-id-check.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -6,7 +6,10 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
+  imports: [
+    forwardRef(() => UserModule),
+    forwardRef(() => AuthModule)
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

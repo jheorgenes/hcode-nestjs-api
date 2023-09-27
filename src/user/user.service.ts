@@ -14,8 +14,6 @@ export class UserService {
 
     const salt = await bcrypt.genSalt();
 
-    console.log({salt});
-
     data.password = await bcrypt.hash(data.password, salt);
 
     return this.prisma.user.create({
@@ -41,6 +39,10 @@ export class UserService {
   async update(id: number, { name, email, password, birthAt, role }: UpdatePutUserDTO) {
 
     await this.exitsUser(id);
+
+    const salt = await bcrypt.genSalt();
+
+    password = await bcrypt.hash(password, salt);
     
     return this.prisma.user.update({
       where: {
@@ -75,7 +77,8 @@ export class UserService {
     }
 
     if(password) {
-      data.password = password;
+      const salt = await bcrypt.genSalt();
+      data.password = await bcrypt.hash(password, salt);
     }
 
     if(role) {

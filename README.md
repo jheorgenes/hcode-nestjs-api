@@ -35,6 +35,8 @@ $ npm install
 ### Dependencies
 
 ```bash
+# Config variáveis de ambiente e etc.
+$ npm i @nestjs/config
 # class-validate 
 $ npm i class-validator class-transformer
 # mapped-types
@@ -55,6 +57,8 @@ $ npm i npm i @nestjs/jwt@9.0.0
 $ npm i bcrypt
 # types bcrypt
 $ npm i -D @types/bcrypt
+## Regulador de pressão (throttlers - Configuravel para impedir ataques de muitas requisições)
+$ npm i @nestjs/throttler@^3.1.0
 
 ```
 

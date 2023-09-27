@@ -18,6 +18,9 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
+  // @UseGuards(ThrottlerGuard) //Fazendo controle de sobrecarga de rotas
+  // @SkipThrottle() //Ignorando a configuração padrão de controle de sobrecarga de rotas
+  // @Throttle(20, 60) //Sobrescrevendo controle de sobrecarga de rotas padrão
   @Post()
   async create(@Body() data: CreateUserDTO) {
     return this.userService.create(data);
